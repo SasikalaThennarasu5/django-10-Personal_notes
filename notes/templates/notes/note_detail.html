@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ object.title }}</h1>
+<p>{{ object.content|linebreaksbr }}</p>
+<p>
+  <a href="{% url 'notes:edit' object.pk %}">Edit</a> ·
+  <a href="{% url 'notes:delete' object.pk %}">Delete</a> ·
+  <a href="{% url 'notes:list' %}">Back</a>
+</p>
+{% endblock %}

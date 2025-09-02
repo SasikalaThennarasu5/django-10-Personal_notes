@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Your Notes{% if request.user.is_superuser %} (Admin View){% endif %}</h1>
+<p><a href="{% url 'notes:create' %}">+ New note</a></p>
+<ul>
+  {% for note in object_list %}
+    <li>
+      <a href="{% url 'notes:detail' note.pk %}">{{ note.title }}</a>
+      <small>— updated {{ note.updated_at }}</small>
+      {% if request.user.is_superuser %}
+        <em>(owner: {{ note.owner.username }})</em>
+      {% endif %}
+    </li>
+  {% empty %}
+    <li>No notes yet.</li>
+  {% endfor %}
+</ul>
+{% if request.user.is_superuser %}
+  <p><a href="{% url 'notes:list' %}">Back to user-only view</a></p>
+{% endif %}
+{% endblock %}
